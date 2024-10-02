@@ -15,4 +15,6 @@ if Mix.env() in [:test, :dev] do
     a papa bear
     and a baby bear
     """
+  config :jetenv, :tuple_data,
+    simple: {MyApp, :adam, "my string", 42, 5.5}
 end

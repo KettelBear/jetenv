@@ -34,6 +34,7 @@ defmodule Jetenv.Decode do
   defp decode_type({"M", m}), do: Module.concat([m])
   defp decode_type({"C", c}), do: String.to_charlist(c)
   defp decode_type({"J", c}), do: Jason.decode!(c)
+  defp decode_type({"U", c}), do: handle_tuple(c)
 
   defp decode_type({"T", val}),
     do: decode_type({"G", Base.decode64!(val)})
@@ -93,5 +94,15 @@ defmodule Jetenv.Decode do
     Enum.reduce(config_path, config_val, fn path_parent, path_child ->
       [{path_parent, path_child}]
     end)
+  end
+
+  defp handle_tuple(c) do
+    Jason.decode!(c)
+    |> Enum.map(&tuple_value/1)
+    |> List.to_tuple()
+  end
+
+  defp tuple_value(%{"type" => type, "value" => value}) do
+    decode_type({type, value})
   end
 end

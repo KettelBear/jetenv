@@ -17,12 +17,33 @@ defmodule Jetenv do
   * G - Erlang term
   * T - Base64 encoded Erlang term
   * PEM - PEM string, see note below
+  * U - Simple Tuples (may contain module names, atoms, strings,
+  integers, or floats)
 
   Type specifiers are required suffixes, two underscores and the
   type, e.g.:
 
   ```
   je__my_app__some_string__S="a string value"
+  ```
+
+  ### Tuple Handling
+
+  Handling a tuple requires a JSON array with JSON objects
+  that contain two keys; the `type` and the `value`. Because
+  order matters in a tuple, the key-value JSON objects should
+  be in order where the first object will be placed in position
+  0 of the tuple.
+
+  Example:
+
+  ```
+  je__my_app__tuple__U=[{\"type\":\"M\",\"value\":\"MyModule\"},{\"type\":\"I\",\"value\":\"42\"}]
+  ```
+  equivalent to:
+
+  ```
+  config :my_app, tuple: {MyModule, 42}
   ```
 
   ### PEM handling

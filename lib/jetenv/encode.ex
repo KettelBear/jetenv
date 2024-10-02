@@ -39,11 +39,13 @@ defmodule Jetenv.Encode do
             {"I", to_string(v2)}
 
           v2 when is_atom(v2) ->
-            Atom.to_string(v2)
-            |> case do
+            case Atom.to_string(v2) do
               "Elixir." <> m = _vs -> {"M", m}
               atm -> {"A", atm}
             end
+
+          v2 when is_tuple(v2) ->
+            encode_tuple(v2)
 
           v2 ->
             encode_other(v2)
@@ -145,6 +147,35 @@ defmodule Jetenv.Encode do
       is_struct(ent) -> :struct
       is_map(ent) -> :map
       is_tuple(ent) -> :tuple
+    end
+  end
+
+  defp encode_tuple(tuple) when is_tuple(tuple) do
+    tuple
+    |> Tuple.to_list()
+    |> do_tuple_encoding()
+    |> Jason.encode!()
+    |> then(&{"U", &1})
+  end
+
+  defp do_tuple_encoding([]), do: []
+  defp do_tuple_encoding([item | items]) do
+    [tuple_pair(item) | do_tuple_encoding(items)]
+  end
+
+  defp tuple_pair(item) do
+    cond do
+      is_atom(item) -> handle_atom(item)
+      is_integer(item) -> %{"type" => "I", "value" => to_string(item)}
+      is_float(item) -> %{"type" => "F", "value" => to_string(item)}
+      true -> %{"type" => "S", "value" => to_string(item)}
+    end
+  end
+
+  defp handle_atom(atom) do
+    case Atom.to_string(atom) do
+      "Elixir." <> module -> %{"type" => "M", "value" => module}
+      atom_str -> %{"type" => "A", "value" => atom_str}
     end
   end
 end

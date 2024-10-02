@@ -3,14 +3,14 @@ defmodule JetenvTest do
   doctest Jetenv
 
   @genout [
-    {"je__jetenv__foo__S", "bar"},
     {"je__jetenv__string_data__long_text__S",
      "once upon a time\nthere were three bears\na momma bear\na papa bear\nand a baby bear\n"},
     {"je__jetenv__string_data__tabs__S", "this \t tab"},
     {"je__jetenv__string_data__quotes__S", "with \"quotes\""},
     {"je__jetenv__string_data__newlines2__S", "hello\n  there"},
     {"je__jetenv__string_data__newlines__S", "hello\nthere"},
-    {"je__jetenv__string_data__simple__S", "hello"}
+    {"je__jetenv__string_data__simple__S", "hello"},
+    {"je__jetenv__tuple_data__simple__U", "[{\"type\":\"M\",\"value\":\"MyApp\"},{\"type\":\"A\",\"value\":\"adam\"},{\"type\":\"S\",\"value\":\"my string\"},{\"type\":\"I\",\"value\":\"42\"},{\"type\":\"F\",\"value\":\"5.5\"}]"}
   ]
 
   test "generator" do
