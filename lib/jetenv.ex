@@ -9,7 +9,7 @@ defmodule Jetenv do
   * S - String
   * A - Atom
   * I - Integer
-  * B - boolean (true or TRUE is true all else is false)
+  * B - boolean (case insensitive "true" is `true`, all else is false)
   * F - Float
   * M - Module name
   * C - charlist

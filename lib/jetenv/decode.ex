@@ -29,7 +29,7 @@ defmodule Jetenv.Decode do
   defp decode_type({"S", val}), do: val
   defp decode_type({"A", a}), do: String.to_atom(a)
   defp decode_type({"I", i}), do: String.to_integer(i)
-  defp decode_type({"B", val}), do: val in ["true", "TRUE"]
+  defp decode_type({"B", val}), do: val |> String.downcase() |> String.equivalent?("true")
   defp decode_type({"F", f}), do: String.to_float(f)
   defp decode_type({"M", m}), do: Module.concat([m])
   defp decode_type({"C", c}), do: String.to_charlist(c)
