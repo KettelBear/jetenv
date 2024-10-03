@@ -165,6 +165,8 @@ defmodule Jetenv.Encode do
 
   defp tuple_pair(item) do
     cond do
+      # Booleans are atoms, so it is important this is the first check.
+      is_boolean(item) -> %{"type" => "B", "value" => to_string(item)}
       is_atom(item) -> handle_atom(item)
       is_integer(item) -> %{"type" => "I", "value" => to_string(item)}
       is_float(item) -> %{"type" => "F", "value" => to_string(item)}

@@ -17,8 +17,8 @@ defmodule Jetenv do
   * G - Erlang term
   * T - Base64 encoded Erlang term
   * PEM - PEM string, see note below
-  * U - Simple Tuples (may contain module names, atoms, strings,
-  integers, or floats)
+  * U - Simple Tuples (may contain module names, atoms, booleans,
+  strings, integers, or floats)
 
   Type specifiers are required suffixes, two underscores and the
   type, e.g.:
@@ -34,6 +34,9 @@ defmodule Jetenv do
   order matters in a tuple, the key-value JSON objects should
   be in order where the first object will be placed in position
   0 of the tuple.
+
+  Note: During encoding, any value that is not a boolean, atom,
+  float, or integer will be assumed a string.
 
   Example:
 

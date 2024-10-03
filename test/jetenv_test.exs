@@ -10,7 +10,8 @@ defmodule JetenvTest do
     {"je__jetenv__string_data__newlines2__S", "hello\n  there"},
     {"je__jetenv__string_data__newlines__S", "hello\nthere"},
     {"je__jetenv__string_data__simple__S", "hello"},
-    {"je__jetenv__tuple_data__simple__U", "[{\"type\":\"M\",\"value\":\"MyApp\"},{\"type\":\"A\",\"value\":\"adam\"},{\"type\":\"S\",\"value\":\"my string\"},{\"type\":\"I\",\"value\":\"42\"},{\"type\":\"F\",\"value\":\"5.5\"}]"}
+    {"je__jetenv__tuple_data__simple__U",
+     "[{\"type\":\"M\",\"value\":\"MyApp\"},{\"type\":\"A\",\"value\":\"adam\"},{\"type\":\"S\",\"value\":\"my string\"},{\"type\":\"I\",\"value\":\"42\"},{\"type\":\"F\",\"value\":\"5.5\"},{\"type\":\"B\",\"value\":\"true\"}]"}
   ]
 
   test "generator" do
